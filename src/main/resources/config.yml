@@ -1,0 +1,42 @@
+SmitheryConfig: 1
+
+# Determines whether players can produce lesser quality Alloys.
+AllowLenientQualities: true
+
+Recipes:
+  STEELGEM:
+    # This name will appear on the resulting Alloy. It does not support formatting.
+    name: Steelgem
+    # Cook time is the amount of time, in SECONDS, this recipe will take to complete.
+    cookTime: 180 # 2 Minutes
+    # Fail chance is the percentage (0-100) chance that the recipe will fail outright.
+    failChance: 0
+    # These are the ingredients for this recipe. Please be aware that you cannot have two or more recipes with the same
+    # ingredients, even if their amounts are different.
+    #
+    # Ingredients can refer to Bukkit-Materials and Alloys.
+    # Ingredients are defined as follows: "INGREDIENT/AMOUNT"
+    #
+    # If the "INGREDIENT" is a Bukkit-Material, write it as: "STONE_BRICKS/1"
+    # See Materials: https://papermc.io/javadocs/paper/1.16/org/bukkit/Material.html
+    #
+    # If the "INGREDIENT" is an Alloy, write its Tag as such: "STEEL:GOOD/1"
+    # There are four recipe-qualities: BEST, GOOD, OKAY, POOR
+    # You can remove the quality, like so: "STEEL/1", if the required quality is BEST
+    ingredients:
+      - IRON_INGOT/3
+      - STEEL/1
+  STEEL:
+    name: Steel
+    cookTime: 600 # 10 Minutes
+    failChance: 0
+    ingredients:
+      - IRON_INGOT/4
+      - COAL/2
+  HSTEEL:
+    name: Heavy Steel
+    cookTime: 60 # 1 Minute
+    failChance: 0
+    ingredients:
+      - STEEL/1
+      - COAL/4

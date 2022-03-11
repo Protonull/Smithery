@@ -1,0 +1,36 @@
+package uk.protonull.smithery.commands;
+
+import co.aikar.commands.annotation.CommandAlias;
+import co.aikar.commands.annotation.CommandCompletion;
+import co.aikar.commands.annotation.Description;
+import co.aikar.commands.annotation.Optional;
+import co.aikar.commands.annotation.Subcommand;
+import co.aikar.commands.annotation.Syntax;
+import co.aikar.commands.bukkit.contexts.OnlinePlayer;
+import net.md_5.bungee.api.ChatColor;
+import org.bukkit.entity.Player;
+import uk.protonull.smithery.forge.ForgeUtils;
+import uk.protonull.smithery.utilities.Utilities;
+import vg.civcraft.mc.civmodcore.command.AikarCommand;
+
+@CommandAlias(CommandRegistrar.ROOT_COMMAND_ALIAS)
+public final class GiveForgeCommand extends AikarCommand {
+
+    @Subcommand("give")
+    @Description("Gives a Forge item to a target, or yourself.")
+    @Syntax("[target]")
+    @CommandCompletion("@players")
+    public void giveForge(final Player sender, @Optional final OnlinePlayer target) {
+        if (target == null || target.getPlayer() == sender) {
+            Utilities.giveOrDrop(sender.getInventory(), ForgeUtils.newForgeItem());
+            sender.sendMessage(ChatColor.GREEN + "You have been given a Forge item");
+        }
+        else {
+            final Player recipient = target.getPlayer();
+            Utilities.giveOrDrop(recipient.getInventory(), ForgeUtils.newForgeItem());
+            sender.sendMessage(ChatColor.GREEN + "You have given " + recipient.getName() + " a Forge item");
+            recipient.sendMessage(ChatColor.GREEN + "You have been given a Forge item");
+        }
+    }
+
+}

@@ -1,0 +1,27 @@
+# Editorconfig is awesome: http://editorconfig.org
+
+# top-most EditorConfig file
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*.java]
+charset = utf-8
+indent_style = space
+tab_width = 4
+indent_size = 4
+end_of_line = lf
+insert_final_newline = false
+trim_trailing_whitespace = true
+max_line_length = 120
+# Intellij specific
+ij_continuation_indent_size = 8
+ij_formatter_off_tag = @formatter:off
+ij_formatter_on_tag = @formatter:on
+ij_formatter_tags_enabled = true
+
+[*.yml]
+indent_size = 2
+end_of_line = lf
+
+[*.md]
+indent_size = 4
