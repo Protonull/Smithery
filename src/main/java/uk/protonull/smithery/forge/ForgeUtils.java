@@ -9,7 +9,7 @@ import org.bukkit.Material;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.persistence.PersistentDataContainer;
 import org.jetbrains.annotations.NotNull;
 import uk.protonull.smithery.utilities.PersistentDataTypes;
 import vg.civcraft.mc.civmodcore.serialization.NBTCompound;
@@ -32,7 +32,7 @@ public class ForgeUtils {
                     .content("Smithery")
                     .build());
             meta.lore(List.of(Component.text("Used to forge Alloys.")));
-            meta.getPersistentDataContainer().set(Forge.FORGE_KEY, PersistentDataType.BYTE, (byte) 1);
+            meta.getPersistentDataContainer().set(Forge.FORGE_KEY, PersistentDataTypes.BOOLEAN, true);
         });
         return item;
     }
@@ -46,9 +46,17 @@ public class ForgeUtils {
     public boolean isForgeItem(final ItemStack item) {
         return item != null
                 && item.getType() == FORGE_MATERIAL
-                && item.getItemMeta()
-                        .getPersistentDataContainer()
-                        .getOrDefault(Forge.FORGE_KEY, PersistentDataTypes.BOOLEAN, Boolean.FALSE);
+                && isForgePDC(item.getItemMeta().getPersistentDataContainer());
+    }
+
+    /**
+     * Determines whether a given PDC indicates the owner's a Forge.
+     *
+     * @param pdc The PDC to test.
+     * @return Returns true if the PDC indicates a Forge.
+     */
+    public boolean isForgePDC(final PersistentDataContainer pdc) {
+        return pdc != null && pdc.getOrDefault(Forge.FORGE_KEY, PersistentDataTypes.BOOLEAN, Boolean.FALSE);
     }
 
     // ------------------------------------------------------------

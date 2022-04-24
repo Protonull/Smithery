@@ -14,9 +14,12 @@ public final class CommandRegistrar extends AikarCommandManager {
         super(Objects.requireNonNull(plugin), false);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void registerCommands() {
+        getInternalManager().enableUnstableAPI("help"); // Deprecated/Beta
         registerCommand(new GiveForgeCommand());
+        registerCommand(new HelpCommand());
         registerCommand(new ListRecipesCommand());
     }
 

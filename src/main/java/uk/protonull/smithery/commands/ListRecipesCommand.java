@@ -28,7 +28,7 @@ import uk.protonull.smithery.utilities.Utilities;
 import vg.civcraft.mc.civmodcore.command.AikarCommand;
 
 @CommandAlias(CommandRegistrar.ROOT_COMMAND_ALIAS)
-public class ListRecipesCommand extends AikarCommand {
+public final class ListRecipesCommand extends AikarCommand {
 
     @Subcommand("list")
     @Description("Lists all known Forge recipes")
@@ -120,10 +120,10 @@ public class ListRecipesCommand extends AikarCommand {
         }
         final Alloy alloy = new Alloy(recipe.slug(), quality);
         if (isFullAlloy) {
-            Utilities.giveOrDrop(sender.getInventory(), AlloyUtils.createAlloyFromRecipe(recipe, quality));
+            Utilities.giveOrDropItem(sender.getInventory(), AlloyUtils.createAlloyFromRecipe(recipe, quality));
         }
         else {
-            Utilities.giveOrDrop(sender.getInventory(), AlloyUtils.newMoltenAlloy(alloy));
+            Utilities.giveOrDropItem(sender.getInventory(), AlloyUtils.newMoltenAlloy(alloy));
         }
         sender.sendMessage(Component.text("You've generated an Alloy.", NamedTextColor.GREEN));
     }

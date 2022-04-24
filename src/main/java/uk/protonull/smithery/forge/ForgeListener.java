@@ -19,6 +19,7 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.event.world.ChunkUnloadEvent;
+import org.bukkit.inventory.FurnaceInventory;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import uk.protonull.smithery.alloys.Alloy;
@@ -52,7 +53,7 @@ public final class ForgeListener implements Listener {
                 && event.getBlockPlaced().getState(false) instanceof final Furnace furnace) {
             final var forge = new Forge(furnace);
             ForgeManager.FORGES.put(forge.getLocation(), forge);
-            //this.logger.info("New Forge placed at [" + forge.getLocation() + "]");
+            this.logger.info("New Forge placed at [" + forge.getLocation() + "]");
         }
     }
 
@@ -62,8 +63,18 @@ public final class ForgeListener implements Listener {
         if (block.getType() == ForgeUtils.FORGE_MATERIAL) {
             final Forge forge = ForgeManager.removeForge(new ForgeLocation.Static(block));
             if (forge != null) {
-                event.getPlayer().sendMessage(ChatColor.GRAY + "You dismantle the forge.");
-                //this.logger.info("Forge at [" + forge.getLocation() + "] has been destroyed.");
+                event.getPlayer().sendMessage(ChatColor.GRAY + "You've dismantled that forge.");
+                this.logger.info("Forge at [" + forge.getLocation() + "] has been destroyed.");
+                event.setDropItems(false);
+                // Drop any items that happen to be inside the Furnace... for whatever reason
+                final FurnaceInventory inventory = forge.getFurnace().getInventory();
+                for (final ItemStack itemToDrop : inventory) {
+                    if (!Utilities.isEmptyItem(itemToDrop)) {
+                        Utilities.dropItem(block.getLocation(), itemToDrop);
+                    }
+                }
+                // Drop Forge item
+                Utilities.dropItem(block.getLocation(), ForgeUtils.newForgeItem());
             }
         }
     }
@@ -257,7 +268,7 @@ public final class ForgeListener implements Listener {
         }
         cauldronData.setLevel(0);
         cauldron.setBlockData(cauldronData);
-        Utilities.giveOrDrop(player.getInventory(), result);
+        Utilities.giveOrDropItem(player.getInventory(), result);
         Utilities.setInteractItem(event, new ItemStack(Material.BUCKET));
     }
 

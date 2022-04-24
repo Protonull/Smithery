@@ -104,15 +104,33 @@ public class Utilities {
         return new NamespacedKey(namespace, key);
     }
 
-    public void giveOrDrop(@NotNull final Inventory inventory,
-                           @NotNull final ItemStack item) {
+    /**
+     * Attempts to add an item to an inventory. If this fails, it will drop the item at the inventory's location,
+     * which it's assumed to have.
+     *
+     * @param inventory The inventory to add the item to.
+     * @param item The item to add.
+     */
+    public void giveOrDropItem(@NotNull final Inventory inventory,
+                               @NotNull final ItemStack item) {
         final Collection<ItemStack> failedToAdd = inventory.addItem(item).values();
         if (!failedToAdd.isEmpty()) {
             final Location location = Objects.requireNonNull(inventory.getLocation());
             for (final ItemStack drop : failedToAdd) {
-                location.getWorld().dropItem(location, drop).setVelocity(new Vector(0d, 0.5d, 0d));
+                dropItem(location, drop);
             }
         }
+    }
+
+    /**
+     * Drops an item at a specific location with a slight upward vector.
+     *
+     * @param location The location the drop the item at.
+     * @param item The item to drop.
+     */
+    public void dropItem(@NotNull final Location location,
+                         @NotNull final ItemStack item) {
+        location.getWorld().dropItem(location, item).setVelocity(new Vector(0d, 0.5d, 0d));
     }
 
     /**

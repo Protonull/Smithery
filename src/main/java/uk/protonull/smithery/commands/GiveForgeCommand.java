@@ -22,12 +22,12 @@ public final class GiveForgeCommand extends AikarCommand {
     @CommandCompletion("@players")
     public void giveForge(final Player sender, @Optional final OnlinePlayer target) {
         if (target == null || target.getPlayer() == sender) {
-            Utilities.giveOrDrop(sender.getInventory(), ForgeUtils.newForgeItem());
+            Utilities.giveOrDropItem(sender.getInventory(), ForgeUtils.newForgeItem());
             sender.sendMessage(ChatColor.GREEN + "You have been given a Forge item");
         }
         else {
             final Player recipient = target.getPlayer();
-            Utilities.giveOrDrop(recipient.getInventory(), ForgeUtils.newForgeItem());
+            Utilities.giveOrDropItem(recipient.getInventory(), ForgeUtils.newForgeItem());
             sender.sendMessage(ChatColor.GREEN + "You have given " + recipient.getName() + " a Forge item");
             recipient.sendMessage(ChatColor.GREEN + "You have been given a Forge item");
         }
