@@ -14,7 +14,7 @@ Recipes:
     # These are the ingredients for this recipe. Please be aware that you cannot have two or more recipes with the same
     # ingredients, even if their amounts are different.
     #
-    # Ingredients can refer to Bukkit-Materials and Alloys.
+    # Ingredients can refer to Bukkit-Materials, Alloys, and custom item IDs.
     # Ingredients are defined as follows: "INGREDIENT/AMOUNT"
     #
     # If the "INGREDIENT" is a Bukkit-Material, write it as: "STONE_BRICKS/1"
@@ -23,6 +23,9 @@ Recipes:
     # If the "INGREDIENT" is an Alloy, write its Tag as such: "STEEL:GOOD/1"
     # There are four recipe-qualities: BEST, GOOD, OKAY, POOR
     # You can remove the quality, like so: "STEEL/1", if the required quality is BEST
+    #
+    # If the "INGREDIENT" is a custom item ID, use "uk.protonull.smithery.alloys.AlloyFinder" to set a custom finder to
+    # ensure that the custom item returns the appropriate ID, as a string, when queried.
     ingredients:
       - IRON_INGOT/3
       - STEEL/1

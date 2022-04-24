@@ -24,13 +24,10 @@ import uk.protonull.smithery.forge.ForgeRecipe;
 import uk.protonull.smithery.utilities.AmountMap;
 import uk.protonull.smithery.utilities.ItemBuilder;
 import vg.civcraft.mc.civmodcore.inventory.items.MetaUtils;
-import vg.civcraft.mc.civmodcore.util.CivLogger;
 import vg.civcraft.mc.civmodcore.util.MoreArrayUtils;
 
 @UtilityClass
 public final class AlloyUtils {
-
-    private final CivLogger LOGGER = CivLogger.getLogger(AlloyUtils.class);
 
     /**
      * @param item The item to check.
@@ -105,17 +102,14 @@ public final class AlloyUtils {
     public Alloy createAlloyFromIngredients(@NotNull final AmountMap<String> ingredients,
                                             final long timeSpentSmelting) {
         if (MapUtils.isEmpty(ingredients)) {
-            LOGGER.warning("Ingredients were empty.");
             return Alloy.SLAG;
         }
         final ForgeRecipe matchedRecipe = IterableUtils.find(Config.RECIPES.get(), (final ForgeRecipe recipe) ->
                 CollectionUtils.isEqualCollection(ingredients.keySet(), recipe.ingredients().keySet()));
         if (matchedRecipe == null) {
-            LOGGER.warning("Could not match recipe!");
             return Alloy.SLAG;
         }
         if (ThreadLocalRandom.current().nextDouble(1d, 100d) <= matchedRecipe.failChance()) {
-            LOGGER.warning("Randomly failed!");
             return Alloy.SLAG;
         }
         final boolean amountsMatch = IterableUtils.matchesAll(ingredients.keySet(),
@@ -137,7 +131,6 @@ public final class AlloyUtils {
         else if (!amountsMatch
                 || timeSpentSmelting < (matchedRecipe.cookTime() * 0.9d)
                 || timeSpentSmelting > (matchedRecipe.cookTime() * 1.3d)) {
-            LOGGER.warning("Amounts failed!");
             return Alloy.SLAG;
         }
         return new Alloy(matchedRecipe.slug(), quality);
@@ -171,16 +164,6 @@ public final class AlloyUtils {
             return IterableUtils.matchesAny(shapelessRecipe.getIngredientList(), AlloyUtils::isItemAnAlloy);
         }
         return false;
-    }
-
-    // ------------------------------------------------------------
-    // Ingredients
-    // ------------------------------------------------------------
-
-    @NotNull
-    public String getIngredientKey(@NotNull final ItemStack ingredient) {
-        final Alloy alloy = getAlloyFromItem(ingredient.getItemMeta());
-        return alloy == null ? ingredient.getType().name() : alloy.generateKey();
     }
 
     // ------------------------------------------------------------
