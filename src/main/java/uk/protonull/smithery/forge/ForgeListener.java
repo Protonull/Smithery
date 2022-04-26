@@ -217,6 +217,10 @@ public final class ForgeListener implements Listener {
         }
         inventory.clear();
         inventory.setItem(0, ForgeUtils.newInsertButton());
+        if (amountsAdded < 1) {
+            event.getWhoClicked().sendMessage(ChatColor.GRAY + "There's nothing to add to that Forge.");
+            return;
+        }
         forge.setTimeOfLastIngredientInsert(System.currentTimeMillis());
         event.getWhoClicked().sendMessage(ChatColor.GRAY + "You added " + amountsAdded + " ingredients to the Forge.");
     }
