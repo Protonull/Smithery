@@ -1,20 +1,15 @@
 package uk.protonull.smithery.utilities;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.BiPredicate;
-import java.util.function.Consumer;
 import java.util.logging.Level;
 import lombok.experimental.UtilityClass;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.block.Block;
-import org.bukkit.block.data.BlockData;
-import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
@@ -38,42 +33,6 @@ public class Utilities {
      */
     public boolean isEmptyItem(final ItemStack item) {
         return item == null || item.getType() == Material.AIR || item.getAmount() < 1;
-    }
-
-    /**
-     * Determines whether a given item is valid.
-     *
-     * @param item The item to check.
-     * @return Returns true if the item is valid.
-     */
-    public boolean isValidItem(final ItemStack item) {
-        return !isEmptyItem(item)
-                && item.getType().isItem()
-                && item.getAmount() <= item.getType().getMaxStackSize();
-    }
-
-    /**
-     * Extends the behaviour of {@link ItemStack#subtract()} with the difference that an item subtracted below a valid
-     * amount will return null.
-     *
-     * @param item The item to subtract.
-     * @return Returns the subtracted item, or null if the item would no longer exist amount-wise.
-     */
-    public ItemStack subtractItem(final ItemStack item) {
-        return subtractItem(item, 1);
-    }
-
-    /**
-     * Extends the behaviour of {@link ItemStack#subtract()} with the difference that an item subtracted below a valid
-     * amount will return null.
-     *
-     * @param item   The item to subtract.
-     * @param amount The amount to subtract the item by.
-     * @return Returns the subtracted item, or null if the item would no longer exist amount-wise.
-     */
-    public ItemStack subtractItem(final ItemStack item,
-                                  final int amount) {
-        return item == null ? null : item.subtract(amount).getAmount() < 1 ? null : item;
     }
 
     /**
@@ -164,25 +123,6 @@ public class Utilities {
     }
 
     /**
-     * Checks whether an inventory has other viewers.
-     *
-     * @param inventory The inventory to check.
-     * @param viewer The viewer to exclude from the check.
-     * @return Returns true if an inventory has other viewers.
-     */
-    public boolean hasOtherViewersOtherThan(final @NotNull Inventory inventory,
-                                            final @NotNull HumanEntity viewer) {
-        final List<HumanEntity> viewers = inventory.getViewers();
-        if (viewers.size() > 1) {
-            return true;
-        }
-        final HumanEntity lastViewer = viewers.get(0);
-        // If the last viewer is the given viewer, then there aren't any others.
-        // If the last viewer isn't the given viewer, then the given viewer isn't actually a viewer.
-        return lastViewer != viewer;
-    }
-
-    /**
      * Encodes an inventory into an NBT compound. Only non-empty slots will be encoded.
      *
      * @param inventory The inventory to encode.
@@ -237,14 +177,6 @@ public class Utilities {
             contents[index] = parsed;
         }
         inventory.setContents(contents);
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> void editBlockData(final @NotNull Block block,
-                                  final @NotNull Consumer<@NotNull T> editor) {
-        final T data = (T) block.getBlockData();
-        editor.accept(data);
-        block.setBlockData((BlockData) data);
     }
 
 }
