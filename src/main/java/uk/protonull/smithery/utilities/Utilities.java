@@ -37,7 +37,7 @@ public class Utilities {
      * @return Returns true if the item can be interpreted as an empty slot.
      */
     public boolean isEmptyItem(final ItemStack item) {
-        return item == null || item.getType() == Material.AIR;
+        return item == null || item.getType() == Material.AIR || item.getAmount() < 1;
     }
 
     /**
@@ -49,7 +49,6 @@ public class Utilities {
     public boolean isValidItem(final ItemStack item) {
         return !isEmptyItem(item)
                 && item.getType().isItem()
-                && item.getAmount() > 0
                 && item.getAmount() <= item.getType().getMaxStackSize();
     }
 
