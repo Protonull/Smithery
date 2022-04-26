@@ -1,7 +1,6 @@
 package uk.protonull.smithery.alloys;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 import lombok.experimental.UtilityClass;
 import net.kyori.adventure.text.Component;
@@ -109,7 +108,7 @@ public final class AlloyUtils {
             return Alloy.SLAG;
         }
         final boolean amountsMatch = IterableUtils.matchesAll(ingredients.keySet(),
-                (final String key) -> Objects.equals(ingredients.getInt(key), matchedRecipe.ingredients().getInt(key)));
+                (final String key) -> ingredients.getInt(key) == matchedRecipe.ingredients().getInt(key));
         AlloyQuality quality = AlloyQuality.BEST;
         if (Config.HINTS_ENABLED.get()) {
             // Ingredient Amounts
