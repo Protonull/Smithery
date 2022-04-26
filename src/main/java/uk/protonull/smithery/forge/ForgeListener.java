@@ -23,7 +23,7 @@ import org.bukkit.inventory.FurnaceInventory;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import uk.protonull.smithery.alloys.Alloy;
-import uk.protonull.smithery.alloys.AlloyFinder;
+import uk.protonull.smithery.utilities.IngredientMatcher;
 import uk.protonull.smithery.alloys.AlloyUtils;
 import uk.protonull.smithery.config.Config;
 import uk.protonull.smithery.utilities.ActionHandler;
@@ -210,7 +210,7 @@ public final class ForgeListener implements Listener {
         int amountsAdded = 0;
         for (final ItemStack ingredient : inventory) {
             if (!Utilities.isEmptyItem(ingredient)) {
-                final String slug = AlloyFinder.find(ingredient);
+                final String slug = IngredientMatcher.getIngredientID(ingredient);
                 ingredients.addAmount(slug, ingredient.getAmount());
                 amountsAdded += ingredient.getAmount();
             }

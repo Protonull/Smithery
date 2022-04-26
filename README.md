@@ -23,8 +23,8 @@ handler allows or denies based on permissions.
 
 ### Custom item handling
 Say you have custom items that you wish to use as ingredients in Smithery, take a gander
-at `uk.protonull.smithery.alloys.AlloyFinder` and create a custom finder that will return a deterministic ID if the
-given item matches any of your custom items. That ID can be used within the ingredients list of configured recipes.
+at `uk.protonull.smithery.utilities.IngredientMatcher` and create a custom finder that will return a deterministic ID if
+the given item matches any of your custom items. That ID can be used within the ingredients list of configured recipes.
 
 ### Alloy handling
 Alloy data is stored within the item's PersistentDataContainer, example below:
