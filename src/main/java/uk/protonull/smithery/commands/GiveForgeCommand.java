@@ -2,6 +2,7 @@ package uk.protonull.smithery.commands;
 
 import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.CommandCompletion;
+import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Description;
 import co.aikar.commands.annotation.Optional;
 import co.aikar.commands.annotation.Subcommand;
@@ -20,6 +21,7 @@ public final class GiveForgeCommand extends AikarCommand {
     @Description("Gives a Forge item to a target, or yourself.")
     @Syntax("[target]")
     @CommandCompletion("@players")
+    @CommandPermission(CommandRegistrar.ADMIN_PERMISSION)
     public void giveForge(final Player sender, @Optional final OnlinePlayer target) {
         if (target == null || target.getPlayer() == sender) {
             Utilities.giveOrDropItem(sender.getInventory(), ForgeUtils.newForgeItem());
