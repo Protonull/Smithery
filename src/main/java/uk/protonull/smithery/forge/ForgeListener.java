@@ -238,9 +238,9 @@ public final class ForgeListener implements Listener {
         if (alloy == null) {
             return;
         }
+        event.setCancelled(true);
         final Levelled cauldronData = (Levelled) cauldron.getBlockData();
         if (cauldronData.getLevel() != cauldronData.getMaximumLevel()) {
-            event.setCancelled(true);
             return;
         }
         final Player player = event.getPlayer();
