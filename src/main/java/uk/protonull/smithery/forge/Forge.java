@@ -16,7 +16,7 @@ import uk.protonull.smithery.utilities.AmountMap;
 import uk.protonull.smithery.utilities.Utilities;
 import vg.civcraft.mc.civmodcore.serialization.NBTCompound;
 
-public class Forge implements InventoryHolder {
+public final class Forge implements InventoryHolder {
 
     private static final Component FORGE_TITLE = Component.text("Smithery");
     public static final NamespacedKey FORGE_KEY = Utilities.key("smithery", "forge");
