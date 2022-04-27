@@ -74,6 +74,7 @@ public final class SmelteryVersion4 extends AbstractConfigParser {
                 recipes.put(slug, new ForgeRecipe(
                         slug,
                         name,
+                        1,
                         TimeUnit.MINUTES.toMillis(smeltTimeMinutes),
                         failPercentage,
                         ingredients

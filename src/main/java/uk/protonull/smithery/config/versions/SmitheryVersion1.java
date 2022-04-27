@@ -43,6 +43,12 @@ public final class SmitheryVersion1 extends AbstractConfigParser {
                     this.logger.warning(" Recipe [" + slug + "] has a blank name!");
                     continue;
                 }
+                // Yield
+                int yield = recipeSection.getInt("yield", 1);
+                if (yield < 1) {
+                    this.logger.warning(" Recipe [" + slug + "] yield [" + yield + "] is less than 1... clamping to 1");
+                    yield = 1;
+                }
                 // Smelt Time
                 final int cookTimeSeconds = recipeSection.getInt("cookTime");
                 if (cookTimeSeconds < 10) {
@@ -64,6 +70,7 @@ public final class SmitheryVersion1 extends AbstractConfigParser {
                 recipes.put(slug, new ForgeRecipe(
                         slug,
                         name,
+                        yield,
                         TimeUnit.SECONDS.toMillis(cookTimeSeconds),
                         failPercentage,
                         ingredients

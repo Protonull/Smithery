@@ -91,6 +91,7 @@ public final class AlloyUtils {
                             .build()
             ));
         });
+        item.setAmount(recipe.yield());
         return item;
     }
 

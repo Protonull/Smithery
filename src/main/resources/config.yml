@@ -7,6 +7,8 @@ Recipes:
   STEELGEM:
     # This name will appear on the resulting Alloy. It does not support formatting.
     name: Steelgem
+    # The amount of alloy produced.
+    yield: 1
     # Cook time is the amount of time, in SECONDS, this recipe will take to complete.
     cookTime: 180 # 2 Minutes
     # Fail chance is the percentage (0-100) chance that the recipe will fail outright.
@@ -31,6 +33,7 @@ Recipes:
       - STEEL/1
   STEEL:
     name: Steel
+    yield: 1
     cookTime: 600 # 10 Minutes
     failChance: 0
     ingredients:
@@ -38,6 +41,7 @@ Recipes:
       - COAL/2
   HSTEEL:
     name: Heavy Steel
+    yield: 1
     cookTime: 60 # 1 Minute
     failChance: 0
     ingredients:
