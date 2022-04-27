@@ -71,7 +71,7 @@ public final class ListRecipesCommand extends AikarCommand {
     }
 
     private @NotNull List<Component> INTERNAL_getQualityOptions(final @NotNull ForgeRecipe recipe,
-                                                       final boolean isCompleteAlloy) {
+                                                                final boolean isCompleteAlloy) {
         final AlloyQuality[] qualities = AlloyQuality.values();
         final var options = new ArrayList<Component>((qualities.length * 2) - 1);
         for (final Iterator<AlloyQuality> iterator = IteratorUtils.arrayIterator(qualities); iterator.hasNext();) {
@@ -92,7 +92,7 @@ public final class ListRecipesCommand extends AikarCommand {
                                     .content("Click to produce this Alloy at this quality!")
                     )))
                     .clickEvent(ClickEvent.runCommand(
-                            "/smithery listproduce " + isCompleteAlloy + " " + recipe.slug() + " " + quality.name()
+                            "/smithery ADMIN_GENERATE_ALLOY " + isCompleteAlloy + " " + recipe.slug() + " " + quality.name()
                     ))
                     .build());
             if (iterator.hasNext()) {
@@ -102,7 +102,7 @@ public final class ListRecipesCommand extends AikarCommand {
         return options;
     }
 
-    @Subcommand("listproduce")
+    @Subcommand("ADMIN_GENERATE_ALLOY")
     @CommandPermission(CommandRegistrar.ADMIN_PERMISSION)
     @Private
     public void generateAlloy(final Player sender,
