@@ -18,8 +18,7 @@ public enum AlloyQuality {
     /**
      * @return Returns the quality considered better than this quality. Cannot go higher than BEST.
      */
-    @NotNull
-    public AlloyQuality upgrade() {
+    public @NotNull AlloyQuality upgrade() {
         return switch (this) {
             case BEST, GOOD -> BEST;
             case OKAY -> GOOD;
@@ -30,8 +29,7 @@ public enum AlloyQuality {
     /**
      * @return Returns the quality considered lesser than this quality. Cannot go lower than POOR.
      */
-    @NotNull
-    public AlloyQuality downgrade() {
+    public @NotNull AlloyQuality downgrade() {
         return switch (this) {
             case BEST -> GOOD;
             case GOOD -> OKAY;

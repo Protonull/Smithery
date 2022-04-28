@@ -41,8 +41,7 @@ public final class AlloyUtils {
      * @param meta The item meta to get the alloy from.
      * @return Returns the item's alloy. You can infer from a null that the item was not an alloy.
      */
-    @Nullable
-    public Alloy getAlloyFromItem(@NotNull final ItemMeta meta) {
+    public @Nullable Alloy getAlloyFromItem(final @NotNull ItemMeta meta) {
         return meta.getPersistentDataContainer().get(Alloy.PDC_KEY, Alloy.TYPE);
     }
 
@@ -52,16 +51,15 @@ public final class AlloyUtils {
      * @param meta The item meta to apply the alloy to.
      * @param alloy The alloy to apply.
      */
-    public void setAlloyToItem(@NotNull final ItemMeta meta,
-                               @NotNull final Alloy alloy) {
+    public void setAlloyToItem(final @NotNull ItemMeta meta,
+                               final @NotNull Alloy alloy) {
         meta.getPersistentDataContainer().set(Alloy.PDC_KEY, Alloy.TYPE, alloy);
     }
 
     /**
      * @return Returns a new alloy template item.
      */
-    @NotNull
-    public ItemStack newAlloyItem(@NotNull final Alloy alloy) {
+    public @NotNull ItemStack newAlloyItem(final @NotNull Alloy alloy) {
         final var item = new ItemStack(Material.STICK);
         item.editMeta((final ItemMeta meta) -> {
             setAlloyToItem(meta, alloy);
@@ -70,9 +68,8 @@ public final class AlloyUtils {
         return item;
     }
 
-    @NotNull
-    public ItemStack createAlloyFromRecipe(@NotNull final ForgeRecipe recipe,
-                                           @NotNull final AlloyQuality quality) {
+    public @NotNull ItemStack createAlloyFromRecipe(final @NotNull ForgeRecipe recipe,
+                                                    final @NotNull AlloyQuality quality) {
         final ItemStack item = newAlloyItem(new Alloy(recipe.slug(), quality));
         item.editMeta((final ItemMeta meta) -> {
             meta.displayName(Component.text()
@@ -98,9 +95,8 @@ public final class AlloyUtils {
         return item;
     }
 
-    @NotNull
-    public Alloy createAlloyFromIngredients(@NotNull final AmountMap<String> ingredients,
-                                            final long timeSpentSmelting) {
+    public @NotNull Alloy createAlloyFromIngredients(final @NotNull AmountMap<String> ingredients,
+                                                     final long timeSpentSmelting) {
         if (MapUtils.isEmpty(ingredients)) {
             return Alloy.SLAG;
         }
@@ -146,7 +142,7 @@ public final class AlloyUtils {
      * @param inventory The crafting inventory to check.
      * @return Returns true if the matrix contains Alloys.
      */
-    public boolean doesMatrixContainAlloys(@NotNull final CraftingInventory inventory) {
+    public boolean doesMatrixContainAlloys(final @NotNull CraftingInventory inventory) {
         return MoreArrayUtils.anyMatch(inventory.getMatrix(), AlloyUtils::isItemAnAlloy);
     }
 
@@ -156,7 +152,7 @@ public final class AlloyUtils {
      * @param recipe The recipe to check.
      * @return Returns true if the recipe defines Alloy ingredients.
      */
-    public boolean doesRecipeDefineAlloyIngredients(@NotNull final Recipe recipe) {
+    public boolean doesRecipeDefineAlloyIngredients(final @NotNull Recipe recipe) {
         if (recipe instanceof final ShapedRecipe shapedRecipe) {
             return IterableUtils.matchesAny(shapedRecipe.getIngredientMap().values(), AlloyUtils::isItemAnAlloy);
         }
@@ -175,8 +171,7 @@ public final class AlloyUtils {
     /**
      * @return Returns a new Alloy template item.
      */
-    @NotNull
-    public ItemStack newMoltenAlloy(@NotNull final Alloy alloy) {
+    public @NotNull ItemStack newMoltenAlloy(final @NotNull Alloy alloy) {
         return ItemBuilder.builder(MOLTEN_ALLOY_MATERIAL)
                 .meta((final ItemMeta meta) -> {
                     setAlloyToItem(meta, alloy);
@@ -198,8 +193,7 @@ public final class AlloyUtils {
      * @param item The item to retrieve the Alloy from.
      * @return Returns an Alloy value, or null.
      */
-    @Nullable
-    public Alloy getMoltenAlloy(final ItemStack item) {
+    public @Nullable Alloy getMoltenAlloy(final ItemStack item) {
         return item == null || item.getType() != MOLTEN_ALLOY_MATERIAL ? null : getAlloyFromItem(item.getItemMeta());
     }
 
@@ -210,8 +204,7 @@ public final class AlloyUtils {
     /**
      * @return Returns a new slag item.
      */
-    @NotNull
-    public ItemStack newSlagItem() {
+    public @NotNull ItemStack newSlagItem() {
         final ItemStack item = newAlloyItem(Alloy.SLAG);
         item.editMeta((final ItemMeta meta) -> {
             meta.displayName(Component.text()

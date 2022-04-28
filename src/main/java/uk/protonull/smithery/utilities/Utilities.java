@@ -82,24 +82,22 @@ public class Utilities {
      * @param event The interact event.
      * @param item  The item to set.
      */
-    public void setInteractItem(final PlayerInteractEvent event,
+    public void setInteractItem(final @NotNull PlayerInteractEvent event,
                                 final ItemStack item) {
         event.getPlayer().getInventory().setItem(Objects.requireNonNull(event.getHand()), item);
     }
 
-    @NotNull
-    public String requireNonBlankString(final String string,
-                                        @NotNull final String message) {
+    public @NotNull String requireNonBlankString(final String string,
+                                                 final @NotNull String message) {
         if (StringUtils.isBlank(string)) {
             throw new IllegalArgumentException(message);
         }
         return string;
     }
 
-    @NotNull
     @SuppressWarnings("deprecation")
-    public NamespacedKey key(@NotNull final String namespace,
-                             @NotNull final String key) {
+    public @NotNull NamespacedKey key(final @NotNull String namespace,
+                                      final @NotNull String key) {
         return new NamespacedKey(namespace, key);
     }
 
@@ -110,8 +108,8 @@ public class Utilities {
      * @param inventory The inventory to add the item to.
      * @param item The item to add.
      */
-    public void giveOrDropItem(@NotNull final Inventory inventory,
-                               @NotNull final ItemStack item) {
+    public void giveOrDropItem(final @NotNull Inventory inventory,
+                               final @NotNull ItemStack item) {
         final Collection<ItemStack> failedToAdd = inventory.addItem(item).values();
         if (!failedToAdd.isEmpty()) {
             final Location location = Objects.requireNonNull(inventory.getLocation());
@@ -127,8 +125,8 @@ public class Utilities {
      * @param location The location the drop the item at.
      * @param item The item to drop.
      */
-    public void dropItem(@NotNull final Location location,
-                         @NotNull final ItemStack item) {
+    public void dropItem(final @NotNull Location location,
+                         final @NotNull ItemStack item) {
         location.getWorld().dropItem(location, item).setVelocity(new Vector(0d, 0.5d, 0d));
     }
 
@@ -141,8 +139,8 @@ public class Utilities {
      * @param map The map to remove entries from.
      * @param predicate The method to test entries with. It should return true to remove that entry.
      */
-    public <K, V> void removeIf(@NotNull final Map<K, V> map,
-                                @NotNull final BiPredicate<K, V> predicate) {
+    public <K, V> void removeIf(final @NotNull Map<K, V> map,
+                                final @NotNull BiPredicate<K, V> predicate) {
         map.entrySet().removeIf((entry) -> predicate.test(entry.getKey(), entry.getValue()));
     }
 
@@ -152,13 +150,12 @@ public class Utilities {
      *
      * @param event The event to cancel.
      */
-    public void cancelPrepareItemCraftEvent(@NotNull final PrepareItemCraftEvent event) {
+    public void cancelPrepareItemCraftEvent(final @NotNull PrepareItemCraftEvent event) {
         event.getInventory().setResult(null);
     }
 
-    @NotNull
-    public NBTCompound getOrCreateCompound(@NotNull final NBTCompound host,
-                                           @NotNull final String key) {
+    public @NotNull NBTCompound getOrCreateCompound(final @NotNull NBTCompound host,
+                                                    final @NotNull String key) {
         return Objects.requireNonNullElseGet(host.getCompound(key), () -> {
             final var nbt = new NBTCompound();
             host.setCompound(key, nbt);
@@ -173,8 +170,8 @@ public class Utilities {
      * @param viewer The viewer to exclude from the check.
      * @return Returns true if an inventory has other viewers.
      */
-    public boolean hasOtherViewersOtherThan(@NotNull final Inventory inventory,
-                                            @NotNull final HumanEntity viewer) {
+    public boolean hasOtherViewersOtherThan(final @NotNull Inventory inventory,
+                                            final @NotNull HumanEntity viewer) {
         final List<HumanEntity> viewers = inventory.getViewers();
         if (viewers.size() > 1) {
             return true;
@@ -191,7 +188,7 @@ public class Utilities {
      * @param inventory The inventory to encode.
      * @return Returns a new NBT compound.
      */
-    public NBTCompound inventoryToNBT(@NotNull final Inventory inventory) {
+    public @NotNull NBTCompound inventoryToNBT(final @NotNull Inventory inventory) {
         final var nbt = new NBTCompound();
         final ItemStack[] contents = inventory.getContents();
         for (int i = 0; i < contents.length; i++) {
@@ -210,8 +207,8 @@ public class Utilities {
      * @param inventory The inventory to decode into.
      * @param nbt The inventory to decode from.
      */
-    public void inventoryFromNBT(@NotNull final Inventory inventory,
-                                 @NotNull final NBTCompound nbt) {
+    public void inventoryFromNBT(final @NotNull Inventory inventory,
+                                 final @NotNull NBTCompound nbt) {
         inventory.clear();
         final ItemStack[] contents = inventory.getContents();
         for (final String key : nbt.getKeys()) {
@@ -243,8 +240,8 @@ public class Utilities {
     }
 
     @SuppressWarnings("unchecked")
-    public <T> void editBlockData(@NotNull final Block block,
-                                  @NotNull final Consumer<@NotNull T> editor) {
+    public <T> void editBlockData(final @NotNull Block block,
+                                  final @NotNull Consumer<@NotNull T> editor) {
         final T data = (T) block.getBlockData();
         editor.accept(data);
         block.setBlockData((BlockData) data);

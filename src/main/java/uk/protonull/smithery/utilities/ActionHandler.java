@@ -54,7 +54,7 @@ public final class ActionHandler {
      *
      * @param checker The new handler to set.
      */
-    public void setChecker(@NotNull final Checker checker) {
+    public void setChecker(final @NotNull Checker checker) {
         CHECKER = Objects.requireNonNull(checker, "Why are you trying to set a null checker?");
     }
 
@@ -67,8 +67,8 @@ public final class ActionHandler {
      * @return Returns true if the interaction is allowed.
      */
     public boolean canHandle(final Object object,
-                             @NotNull final Player player,
-                             @NotNull final Action action) {
+                             final @NotNull Player player,
+                             final @NotNull Action action) {
         return CHECKER.check(object,
                 Objects.requireNonNull(player, "Player cannot be null!"),
                 Objects.requireNonNull(action, "Action cannot be null!"));

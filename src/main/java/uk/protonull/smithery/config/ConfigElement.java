@@ -14,8 +14,7 @@ public abstract class ConfigElement<T> {
      * @return Returns the config element. Will attempt to parse the config element if there's currently no value. The
      * returned value should, for safety reasons, be immutable.
      */
-    @NotNull
-    public T get() {
+    public @NotNull T get() {
         return this.element == null ?
                 this.element = Objects.requireNonNull(parseElement(), "Element parser returned null!") :
                 this.element;
@@ -26,8 +25,7 @@ public abstract class ConfigElement<T> {
      *
      * @return Returns the parsed config element.
      */
-    @NotNull
-    protected abstract T parseElement();
+    protected abstract @NotNull T parseElement();
 
     /**
      * Resets this config element's value back to null. Call this when Smeltery is being disabled or when you wish to

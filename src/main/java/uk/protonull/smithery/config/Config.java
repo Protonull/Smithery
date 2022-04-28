@@ -16,7 +16,7 @@ public class Config {
 
     private final List<ConfigElement<?>> ELEMENTS = new ArrayList<>();
 
-    private <T> ConfigElement<T> registerElement(final ConfigElement<T> element) {
+    private <T> ConfigElement<T> registerElement(final @NotNull ConfigElement<T> element) {
         ELEMENTS.add(Objects.requireNonNull(element));
         return element;
     }
@@ -83,8 +83,7 @@ public class Config {
      * @param slug The recipe slug to find.
      * @return Returns a matched recipe, or null.
      */
-    @Nullable
-    public ForgeRecipe matchRecipe(final String slug) {
+    public @Nullable ForgeRecipe matchRecipe(final String slug) {
         return IterableUtils.find(RECIPES.get(), (final ForgeRecipe recipe) -> recipe.slug().equalsIgnoreCase(slug));
     }
 

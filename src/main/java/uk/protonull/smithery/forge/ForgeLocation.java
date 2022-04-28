@@ -11,8 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 public abstract class ForgeLocation {
 
-    @NotNull
-    public abstract UUID getWorldUUID();
+    public abstract @NotNull UUID getWorldUUID();
 
     public abstract int getX();
 
@@ -26,15 +25,14 @@ public abstract class ForgeLocation {
      * @param chunk The relevant chunk.
      * @return Returns true if the location is within the chunk.
      */
-    public final boolean isWithinChunk(@NotNull final Chunk chunk) {
+    public final boolean isWithinChunk(final @NotNull Chunk chunk) {
         return Objects.equals(getWorldUUID(), chunk.getWorld().getUID())
                 && (getX() >> 4) == chunk.getX()
                 && (getZ() >> 4) == chunk.getZ();
     }
 
-    @NotNull
     @Override
-    public final String toString() {
+    public final @NotNull String toString() {
         return getWorldUUID() + ":" + getX() + "," + getY() + "," + getZ();
     }
 
@@ -69,22 +67,22 @@ public abstract class ForgeLocation {
         private final int y;
         private final int z;
 
-        public Static(@NotNull final Location location) {
+        public Static(final @NotNull Location location) {
             this(location.getWorld(), location.getBlockX(), location.getBlockY(), location.getBlockZ());
         }
 
-        public Static(@NotNull final Block block) {
+        public Static(final @NotNull Block block) {
             this(block.getWorld(), block.getX(), block.getY(), block.getZ());
         }
 
-        public Static(@NotNull final World world,
+        public Static(final @NotNull World world,
                       final int x,
                       final int y,
                       final int z) {
             this(world.getUID(), x, y, z);
         }
 
-        public Static(@NotNull final UUID worldUUID,
+        public Static(final @NotNull UUID worldUUID,
                       final int x,
                       final int y,
                       final int z) {
@@ -94,9 +92,8 @@ public abstract class ForgeLocation {
             this.z = z;
         }
 
-        @NotNull
         @Override
-        public UUID getWorldUUID() {
+        public @NotNull UUID getWorldUUID() {
             return this.worldUUID;
         }
 

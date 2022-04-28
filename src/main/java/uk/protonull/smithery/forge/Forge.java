@@ -30,12 +30,11 @@ public class Forge implements InventoryHolder {
     private long timeOfLastIngredientInsert;
     private final Inventory inventory;
 
-    public Forge(@NotNull final Furnace furnace) {
+    public Forge(final @NotNull Furnace furnace) {
         this.furnace = Objects.requireNonNull(furnace);
         this.location = new ForgeLocation() {
-            @NotNull
             @Override
-            public UUID getWorldUUID() {
+            public @NotNull UUID getWorldUUID() {
                 return furnace.getWorld().getUID();
             }
             @Override
@@ -59,8 +58,7 @@ public class Forge implements InventoryHolder {
     /**
      * @return Returns this Forge's corresponding Furnace entity.
      */
-    @NotNull
-    public Furnace getFurnace() {
+    public @NotNull Furnace getFurnace() {
         return this.furnace;
     }
 
@@ -69,25 +67,22 @@ public class Forge implements InventoryHolder {
      *         location, not its original location. If the Furnace has been moved by any means in Minecraft, the Forge
      *         location will reflect that. Keep that in mind when using this as a map-key.
      */
-    @NotNull
-    public ForgeLocation getLocation() {
+    public @NotNull ForgeLocation getLocation() {
         return this.location;
     }
 
     /**
      * @return Returns this Forge's inventory.
      */
-    @NotNull
     @Override
-    public Inventory getInventory() {
+    public @NotNull Inventory getInventory() {
         return this.inventory;
     }
 
     /**
      * @return Returns all the ingredients in this Forge.
      */
-    @NotNull
-    public AmountMap<String> getIngredients() {
+    public @NotNull AmountMap<String> getIngredients() {
         this.ingredients.removeEmpties();
         return this.ingredients;
     }
@@ -137,8 +132,7 @@ public class Forge implements InventoryHolder {
      *
      * @return Returns a new NBT compound representing this Forge.
      */
-    @NotNull
-    public NBTCompound toNBT() {
+    public @NotNull NBTCompound toNBT() {
         final var nbt = new NBTCompound();
         // Save ingredients
         final NBTCompound ingredientNBT = Utilities.getOrCreateCompound(nbt, INGREDIENTS_KEY);
@@ -155,7 +149,7 @@ public class Forge implements InventoryHolder {
      *
      * @param nbt The NBT compound to decode.
      */
-    public void fromNBT(@NotNull final NBTCompound nbt) {
+    public void fromNBT(final @NotNull NBTCompound nbt) {
         // Load ingredients
         final AmountMap<String> ingredients = getIngredients();
         ingredients.clear();

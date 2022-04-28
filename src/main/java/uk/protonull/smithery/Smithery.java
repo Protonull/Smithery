@@ -41,8 +41,7 @@ public final class Smithery extends ACivMod {
         this.commands.reset();
     }
 
-    @NotNull
-    public static Smithery getInstance() {
+    public static @NotNull Smithery getInstance() {
         return JavaPlugin.getPlugin(Smithery.class);
     }
 

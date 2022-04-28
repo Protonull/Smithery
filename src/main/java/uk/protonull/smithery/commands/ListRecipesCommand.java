@@ -70,8 +70,7 @@ public final class ListRecipesCommand extends AikarCommand {
         }
     }
 
-    @NotNull
-    private List<Component> INTERNAL_getQualityOptions(@NotNull final ForgeRecipe recipe,
+    private @NotNull List<Component> INTERNAL_getQualityOptions(final @NotNull ForgeRecipe recipe,
                                                        final boolean isCompleteAlloy) {
         final AlloyQuality[] qualities = AlloyQuality.values();
         final var options = new ArrayList<Component>((qualities.length * 2) - 1);

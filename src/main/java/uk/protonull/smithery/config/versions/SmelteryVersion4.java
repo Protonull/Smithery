@@ -24,9 +24,8 @@ public final class SmelteryVersion4 extends AbstractConfigParser {
         return getConfig().getBoolean("EnableHints");
     }
 
-    @NotNull
     @Override
-    public List<ForgeRecipe> parseRecipes() {
+    public @NotNull List<ForgeRecipe> parseRecipes() {
         final var recipes = new HashMap<String, ForgeRecipe>();
         final ConfigurationSection section = getConfig().getConfigurationSection("Recipes");
         if (section != null) {
@@ -84,8 +83,7 @@ public final class SmelteryVersion4 extends AbstractConfigParser {
         return List.copyOf(recipes.values());
     }
 
-    @NotNull
-    private AmountMap<String> INTERNAL_parseIngredientsList(@NotNull final ConfigurationSection section) {
+    private @NotNull AmountMap<String> INTERNAL_parseIngredientsList(final @NotNull ConfigurationSection section) {
         final var map = new AmountMap.ArrayMap<String>();
         for (final String ingredient : ConfigHelper.getStringList(section, "Ingredients")) {
             final String[] parts = StringUtils.split(ingredient, "/");

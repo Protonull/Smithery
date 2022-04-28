@@ -30,7 +30,7 @@ public class ForgeManager {
      *
      * @param location The location of the Forge.
      */
-    public Forge removeForge(@NotNull final ForgeLocation location) {
+    public Forge removeForge(final @NotNull ForgeLocation location) {
         final Forge forge = FORGES.remove(location);
         if (forge != null) {
             forge.closeInventory();
@@ -55,7 +55,7 @@ public class ForgeManager {
      *
      * @param chunk The chunk to load Forges from.
      */
-    public void loadForgesInChunk(@NotNull final Chunk chunk) {
+    public void loadForgesInChunk(final @NotNull Chunk chunk) {
         for (final BlockState state : chunk.getTileEntities(false)) {
             if (state.getType() != ForgeUtils.FORGE_MATERIAL) {
                 continue;
@@ -96,7 +96,7 @@ public class ForgeManager {
      *
      * @param chunk The chunk to use as a coordinate clamp to match Forges against.
      */
-    public void saveForgesInChunk(@NotNull final Chunk chunk) {
+    public void saveForgesInChunk(final @NotNull Chunk chunk) {
         Utilities.removeIf(FORGES, (final ForgeLocation location, final Forge forge) -> {
             if (location.isWithinChunk(chunk)) {
                 forge.saveForge();

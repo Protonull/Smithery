@@ -34,7 +34,7 @@ public interface AmountMap<T> extends Object2IntMap<T> {
      * @return Returns the new amount value, or zero if "empty".
      */
     default int computeAmount(final T key,
-                              @NotNull final Int2IntFunction computer) {
+                              final @NotNull Int2IntFunction computer) {
         return computeInt(key, (final T _key, Integer amount) -> {
             amount = computer.applyAsInt(amount == null ? defaultReturnValue() : amount);
             return amount <= 0 ? null : amount;
@@ -104,7 +104,7 @@ public interface AmountMap<T> extends Object2IntMap<T> {
      * Wrapper class to make an {@link AmountMap} unmodifiable.
      */
     class Unmodifiable<T> extends Object2IntMaps.UnmodifiableMap<T> implements AmountMap<T> {
-        public Unmodifiable(@NotNull final AmountMap<T> map) {
+        public Unmodifiable(final @NotNull AmountMap<T> map) {
             super(Objects.requireNonNull(map));
         }
     }

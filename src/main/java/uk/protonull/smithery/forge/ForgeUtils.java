@@ -22,8 +22,7 @@ public class ForgeUtils {
     /**
      * @return Returns a newly generated Forge (custom furnace).
      */
-    @NotNull
-    public ItemStack newForgeItem() {
+    public @NotNull ItemStack newForgeItem() {
         final var item = new ItemStack(FORGE_MATERIAL);
         item.editMeta((final ItemMeta meta) -> {
             meta.displayName(Component.text()
@@ -71,8 +70,7 @@ public class ForgeUtils {
      * @param furnace The furnace to get the NBT of.
      * @return Returns an NBT component for that furnace.
      */
-    @NotNull
-    public NBTCompound getFurnaceNBT(@NotNull final org.bukkit.block.Furnace furnace) {
+    public @NotNull NBTCompound getFurnaceNBT(final @NotNull org.bukkit.block.Furnace furnace) {
         return new NBTCompound(furnace.getPersistentDataContainer());
     }
 
@@ -83,8 +81,7 @@ public class ForgeUtils {
      * @param furnace The furnace to get the data of.
      * @return Returns the block data for that furnace.
      */
-    @NotNull
-    public org.bukkit.block.data.type.Furnace getFurnaceData(@NotNull final org.bukkit.block.Furnace furnace) {
+    public @NotNull org.bukkit.block.data.type.Furnace getFurnaceData(final @NotNull org.bukkit.block.Furnace furnace) {
         return (org.bukkit.block.data.type.Furnace) furnace.getBlockData();
     }
 
@@ -95,8 +92,7 @@ public class ForgeUtils {
     /**
      * @return Returns a newly generated "Insert" button for the Forge GUI.
      */
-    @NotNull
-    public ItemStack newInsertButton() {
+    public @NotNull ItemStack newInsertButton() {
         final var item = new ItemStack(Material.LIME_DYE);
         item.editMeta((final ItemMeta meta) -> {
             meta.displayName(Component.text()

@@ -33,7 +33,7 @@ public class AlloyFinder {
      *
      * @param finder The new finder to set.
      */
-    public void setFinder(@NotNull final Finder finder) {
+    public void setFinder(final @NotNull Finder finder) {
         FINDER = Objects.requireNonNull(finder, "Why are you trying to set a null finder?");
     }
 

@@ -14,8 +14,7 @@ public abstract class AbstractConfigParser {
     /**
      * @return Returns the config to parse from.
      */
-    @NotNull
-    protected final FileConfiguration getConfig() {
+    protected final @NotNull FileConfiguration getConfig() {
         return Smithery.getInstance().getConfig();
     }
 
@@ -32,7 +31,6 @@ public abstract class AbstractConfigParser {
     /**
      * @return Returns a list of unique Forge recipes.
      */
-    @NotNull
-    public abstract List<ForgeRecipe> parseRecipes();
+    public abstract @NotNull List<ForgeRecipe> parseRecipes();
 
 }

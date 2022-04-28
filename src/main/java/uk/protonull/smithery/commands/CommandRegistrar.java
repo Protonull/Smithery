@@ -10,7 +10,7 @@ public final class CommandRegistrar extends AikarCommandManager {
     public static final String ROOT_COMMAND_ALIAS = "smithery";
     public static final String ADMIN_PERMISSION = "smithery.admin";
 
-    public CommandRegistrar(@NotNull final Smithery plugin) {
+    public CommandRegistrar(final @NotNull Smithery plugin) {
         super(Objects.requireNonNull(plugin), false);
     }
 
@@ -24,7 +24,7 @@ public final class CommandRegistrar extends AikarCommandManager {
     }
 
     @Override
-    public Smithery getPlugin() {
+    public @NotNull Smithery getPlugin() {
         return (Smithery) super.getPlugin();
     }
 

@@ -11,11 +11,11 @@ public record ForgeRecipe(String slug,
                           double failChance,
                           AmountMap<String> ingredients) {
 
-    public ForgeRecipe(@NotNull final String slug,
-                       @NotNull final String name,
+    public ForgeRecipe(final @NotNull String slug,
+                       final @NotNull String name,
                        final long cookTime,
                        final double failChance,
-                       @NotNull final AmountMap<String> ingredients) {
+                       final @NotNull AmountMap<String> ingredients) {
         this.slug = Utilities.requireNonBlankString(slug, "Recipe slug cannot be null!").toUpperCase();
         this.name = Utilities.requireNonBlankString(name, "Recipe name cannot be null!");
         this.cookTime = cookTime;

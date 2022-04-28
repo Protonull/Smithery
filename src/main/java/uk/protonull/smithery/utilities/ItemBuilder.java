@@ -29,9 +29,8 @@ public final class ItemBuilder {
      * @throws IllegalArgumentException Throws an IAE if the given material fails am
      *                                  {@link ItemUtils#isValidItemMaterial(Material)} test.
      */
-    @NotNull
     @Synchronized
-    public ItemBuilder material(@NotNull final Material material) {
+    public @NotNull ItemBuilder material(final @NotNull Material material) {
         if (!ItemUtils.isValidItemMaterial(material)) {
             throw new IllegalArgumentException("That is not a valid item material!");
         }
@@ -48,9 +47,8 @@ public final class ItemBuilder {
      * @throws ClassCastException Throws an CCE if the item meta cannot be cast to the inferred type.
      */
     @SuppressWarnings("unchecked")
-    @NotNull
     @Synchronized
-    public <T> ItemBuilder meta(@NotNull final Consumer<T> handler) {
+    public <T> @NotNull ItemBuilder meta(final @NotNull Consumer<T> handler) {
         if (this.meta == null || !Bukkit.getItemFactory().isApplicable(this.meta, this.material)) {
             this.meta = Objects.requireNonNull(
                     Bukkit.getItemFactory().getItemMeta(this.material),
@@ -66,9 +64,8 @@ public final class ItemBuilder {
      *
      * @throws IllegalArgumentException Throws an IAE if the given amount is less than or equal to zero.
      */
-    @NotNull
     @Synchronized
-    public ItemBuilder amount(final int amount) {
+    public @NotNull ItemBuilder amount(final int amount) {
         if (amount < MINIMUM_AMOUNT) {
             throw new IllegalArgumentException("Item amount cannot be less than or equal to zero!");
         }
@@ -79,9 +76,8 @@ public final class ItemBuilder {
     /**
      * @return Returns a new ItemStack based on this builder.
      */
-    @NotNull
     @Synchronized
-    public ItemStack build() {
+    public @NotNull ItemStack build() {
         final var item = new ItemStack(this.material, this.amount);
         if (this.meta != null) {
             item.setItemMeta(this.meta);
@@ -95,8 +91,7 @@ public final class ItemBuilder {
      * @param material The material to set for the builder.
      * @return Returns a new builder.
      */
-    @NotNull
-    public static ItemBuilder builder(@NotNull final Material material) {
+    public static @NotNull ItemBuilder builder(@NotNull final Material material) {
         return new ItemBuilder().material(material);
     }
 

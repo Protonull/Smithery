@@ -19,8 +19,8 @@ public record Alloy(@NotNull String recipe,
      * @param recipe The recipe slug that created this alloy.
      * @param quality The quality of this alloy.
      */
-    public Alloy(@NotNull final String recipe,
-                 @NotNull final AlloyQuality quality) {
+    public Alloy(final @NotNull String recipe,
+                 final @NotNull AlloyQuality quality) {
         this.recipe = Utilities.requireNonBlankString(recipe, "Alloy recipe cannot be blank!").toUpperCase();
         this.quality = Objects.requireNonNull(quality, "Alloy quality cannot be null!");
     }
@@ -38,8 +38,7 @@ public record Alloy(@NotNull String recipe,
     /**
      * @return Encodes this Alloy into a string.
      */
-    @NotNull
-    public String generateKey() {
+    public @NotNull String generateKey() {
         return quality().isBest() ? recipe() : recipe() + ":" + quality();
     }
 
@@ -49,8 +48,7 @@ public record Alloy(@NotNull String recipe,
      * @param raw The string to decode.
      * @return Returns a new Alloy based on the given string.
      */
-    @NotNull
-    public static Alloy fromKey(@NotNull final String raw) {
+    public static @NotNull Alloy fromKey(final @NotNull String raw) {
         final String[] parts = StringUtils.split(raw, ":");
         return switch (parts.length) {
             case 1 -> new Alloy(parts[0], AlloyQuality.BEST);
@@ -68,20 +66,17 @@ public record Alloy(@NotNull String recipe,
     public static PersistentDataType<PersistentDataContainer, Alloy> TYPE = new PersistentDataType<>() {
         private final NamespacedKey typeKey = Utilities.key(".", "type");
         private final NamespacedKey qualityKey = Utilities.key(".", "quality");
-        @NotNull
         @Override
-        public Class<PersistentDataContainer> getPrimitiveType() {
+        public @NotNull Class<PersistentDataContainer> getPrimitiveType() {
             return PersistentDataContainer.class;
         }
-        @NotNull
         @Override
-        public Class<Alloy> getComplexType() {
+        public @NotNull Class<Alloy> getComplexType() {
             return Alloy.class;
         }
-        @NotNull
         @Override
-        public PersistentDataContainer toPrimitive(@NotNull final Alloy alloy,
-                                                   @NotNull final PersistentDataAdapterContext context) {
+        public @NotNull PersistentDataContainer toPrimitive(final @NotNull Alloy alloy,
+                                                            final @NotNull PersistentDataAdapterContext context) {
             final PersistentDataContainer pdc = context.newPersistentDataContainer();
             pdc.set(typeKey, PersistentDataType.STRING, alloy.recipe());
             if (!alloy.quality().isBest()) {
@@ -89,10 +84,9 @@ public record Alloy(@NotNull String recipe,
             }
             return pdc;
         }
-        @NotNull
         @Override
-        public Alloy fromPrimitive(@NotNull final PersistentDataContainer pdc,
-                                   @NotNull final PersistentDataAdapterContext context) {
+        public @NotNull Alloy fromPrimitive(final @NotNull PersistentDataContainer pdc,
+                                            final @NotNull PersistentDataAdapterContext context) {
             return new Alloy(
                     pdc.get(typeKey, PersistentDataType.STRING), // Ignore highlighter
                     Objects.requireNonNullElse(
