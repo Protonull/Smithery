@@ -6,11 +6,9 @@ import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.configuration.ConfigurationSection;
 import org.jetbrains.annotations.NotNull;
-import uk.protonull.smithery.alloys.Alloy;
 import uk.protonull.smithery.config.AbstractConfigParser;
 import uk.protonull.smithery.forge.ForgeRecipe;
 import uk.protonull.smithery.utilities.AmountMap;
-import vg.civcraft.mc.civmodcore.config.ConfigHelper;
 
 public final class SmitheryVersion1 extends AbstractConfigParser {
 
@@ -66,7 +64,7 @@ public final class SmitheryVersion1 extends AbstractConfigParser {
                     failPercentage = 100d;
                 }
                 // Ingredients
-                final AmountMap<String> ingredients = INTERNAL_parseIngredientsList(recipeSection);
+                final AmountMap<String> ingredients = SmelteryVersion4.parseIngredientsList(this.logger, recipeSection, "ingredients");
                 recipes.put(slug, new ForgeRecipe(
                         slug,
                         name,
@@ -78,32 +76,6 @@ public final class SmitheryVersion1 extends AbstractConfigParser {
             }
         }
         return List.copyOf(recipes.values());
-    }
-
-    private @NotNull AmountMap<String> INTERNAL_parseIngredientsList(final @NotNull ConfigurationSection section) {
-        final var map = new AmountMap.ArrayMap<String>();
-        for (final String ingredient : ConfigHelper.getStringList(section, "ingredients")) {
-            final String[] parts = StringUtils.split(ingredient, "/");
-            if (parts.length != 2) {
-                this.logger.warning("Ingredient [" + ingredient + "] is not valid!");
-                continue;
-            }
-            parts[0] = Alloy.fromKey(parts[0]).generateKey();
-            final int amount;
-            try {
-                amount = Integer.parseInt(parts[1]);
-            }
-            catch (final Throwable thrown) {
-                this.logger.warning("Ingredient [" + ingredient + "] must have an integer amount!");
-                continue;
-            }
-            if (amount < 1) {
-                this.logger.warning("Ingredient [" + ingredient + "] must have a positive integer amount!");
-                continue;
-            }
-            map.put(parts[0], amount);
-        }
-        return map;
     }
 
 }

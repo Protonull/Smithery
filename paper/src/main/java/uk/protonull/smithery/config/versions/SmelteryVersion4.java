@@ -3,6 +3,7 @@ package uk.protonull.smithery.config.versions;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.configuration.ConfigurationSection;
 import org.jetbrains.annotations.NotNull;
@@ -70,7 +71,7 @@ public final class SmelteryVersion4 extends AbstractConfigParser {
                     failPercentage = 100d;
                 }
                 // Ingredients
-                final AmountMap<String> ingredients = INTERNAL_parseIngredientsList(recipeSection);
+                final AmountMap<String> ingredients = parseIngredientsList(this.logger, recipeSection, "Ingredients");
                 recipes.put(slug, new ForgeRecipe(
                         slug,
                         name,
@@ -84,12 +85,14 @@ public final class SmelteryVersion4 extends AbstractConfigParser {
         return List.copyOf(recipes.values());
     }
 
-    private @NotNull AmountMap<String> INTERNAL_parseIngredientsList(final @NotNull ConfigurationSection section) {
+    public static @NotNull AmountMap<String> parseIngredientsList(final @NotNull Logger logger,
+                                                                  final @NotNull ConfigurationSection section,
+                                                                  final @NotNull String key) {
         final var map = new AmountMap.ArrayMap<String>();
-        for (final String ingredient : ConfigHelper.getStringList(section, "Ingredients")) {
+        for (final String ingredient : ConfigHelper.getStringList(section, key)) {
             final String[] parts = StringUtils.split(ingredient, "/");
             if (parts.length != 2) {
-                this.logger.warning("Ingredient [" + ingredient + "] is not valid!");
+                logger.warning("Ingredient [" + ingredient + "] is not valid!");
                 continue;
             }
             parts[0] = Alloy.fromKey(parts[0]).generateKey();
@@ -98,11 +101,11 @@ public final class SmelteryVersion4 extends AbstractConfigParser {
                 amount = Integer.parseInt(parts[1]);
             }
             catch (final Throwable thrown) {
-                this.logger.warning("Ingredient [" + ingredient + "] must have an integer amount!");
+                logger.warning("Ingredient [" + ingredient + "] must have an integer amount!");
                 continue;
             }
             if (amount < 1) {
-                this.logger.warning("Ingredient [" + ingredient + "] must have a positive integer amount!");
+                logger.warning("Ingredient [" + ingredient + "] must have a positive integer amount!");
                 continue;
             }
             map.put(parts[0], amount);
