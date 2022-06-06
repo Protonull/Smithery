@@ -1,9 +1,7 @@
 package uk.protonull.smithery.forge;
 
-import java.util.Objects;
-import org.jetbrains.annotations.NotNull;
+import org.apache.commons.lang3.StringUtils;
 import uk.protonull.smithery.utilities.AmountMap;
-import uk.protonull.smithery.utilities.Utilities;
 
 public record ForgeRecipe(String slug,
                           String name,
@@ -12,18 +10,18 @@ public record ForgeRecipe(String slug,
                           double failChance,
                           AmountMap<String> ingredients) {
 
-    public ForgeRecipe(final @NotNull String slug,
-                       final @NotNull String name,
-                       final int yield,
-                       final long cookTime,
-                       final double failChance,
-                       final @NotNull AmountMap<String> ingredients) {
-        this.slug = Utilities.requireNonBlankString(slug, "Recipe slug cannot be null!").toUpperCase();
-        this.name = Utilities.requireNonBlankString(name, "Recipe name cannot be null!");
-        this.yield = yield;
-        this.cookTime = cookTime;
-        this.failChance = failChance;
-        this.ingredients = new AmountMap.Unmodifiable<>(Objects.requireNonNull(ingredients, "Ingredients cannot be null!"));
+    public ForgeRecipe {
+        if (StringUtils.isBlank(slug)) {
+            throw new IllegalArgumentException("Recipe slug cannot be null!");
+        }
+        slug = slug.toUpperCase();
+        if (StringUtils.isBlank(name)) {
+            throw new IllegalArgumentException("Recipe name cannot be null!");
+        }
+        if (ingredients == null) {
+            throw new IllegalArgumentException("Ingredients cannot be null!");
+        }
+        ingredients = new AmountMap.Unmodifiable<>(ingredients);
     }
 
 }

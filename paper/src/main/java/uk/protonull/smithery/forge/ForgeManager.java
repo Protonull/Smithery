@@ -84,8 +84,8 @@ public class ForgeManager {
      */
     public void saveAllForges() {
         FORGES.values().removeIf((final Forge forge) -> {
-            forge.saveForge();
             forge.closeInventory();
+            forge.saveForge();
             return true;
         });
     }
@@ -98,8 +98,8 @@ public class ForgeManager {
     public void saveForgesInChunk(final @NotNull Chunk chunk) {
         Utilities.removeIf(FORGES, (final ForgeLocation location, final Forge forge) -> {
             if (location.isWithinChunk(chunk)) {
-                forge.saveForge();
                 forge.closeInventory();
+                forge.saveForge();
                 //LOGGER.info("Forge at [" + location + "] has been unloaded.");
                 return true;
             }

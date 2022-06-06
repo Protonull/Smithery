@@ -207,22 +207,20 @@ public final class ForgeListener implements Listener {
         event.setCancelled(true);
         inventory.setItem(0, null); // Remove result button temporarily
         final AmountMap<String> ingredients = forge.getIngredients();
-        int amountsAdded = 0;
         for (final ItemStack ingredient : inventory) {
             if (!Utilities.isEmptyItem(ingredient)) {
                 final String slug = IngredientMatcher.getIngredientID(ingredient);
                 ingredients.changeAmountBy(slug, ingredient.getAmount());
-                amountsAdded += ingredient.getAmount();
             }
         }
         inventory.clear();
         inventory.setItem(0, ForgeUtils.newInsertButton());
-        if (amountsAdded < 1) {
+        if (ingredients.getTotalAmount() < 1) {
             event.getWhoClicked().sendMessage(ChatColor.GRAY + "There's nothing to add to that Forge.");
             return;
         }
         forge.setTimeOfLastIngredientInsert(System.currentTimeMillis());
-        event.getWhoClicked().sendMessage(ChatColor.GRAY + "You added " + amountsAdded + " ingredients to the Forge.");
+        event.getWhoClicked().sendMessage(ChatColor.GRAY + "Those ingredients were added to the Forge.");
     }
 
     @EventHandler(ignoreCancelled = true)
