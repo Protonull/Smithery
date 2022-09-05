@@ -1,0 +1,18 @@
+name: ${name}
+version: ${version}
+main: uk.protonull.smithery.Smithery
+api-version: 1.18
+depend: [CivModCore]
+permissions:
+  smithery.admin:
+    default: op
+  smithery.smelt:
+    default: true
+  smithery.cool:
+    default: true
+  smithery.checktime:
+    default: true
+  smithery.remove:
+    default: true
+  smithery.inspect:
+    default: op
