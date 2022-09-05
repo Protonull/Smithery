@@ -8,6 +8,13 @@ Be aware that Smithery does not dictate how Forges are made nor how Alloys are u
 Likewise, use `/smithery list` to list all parsed recipes and be able to produce each Alloy at each quality at each
 stage.
 
+## Licence
+
+Please be aware that this software inherits its GPLv3 licence from Bukkit. By contributing to this project, you
+consent to licensing your contribution under the same GPLv3 licence. Likewise, ‘linking’ to (aka depending on) this
+project may require your project to also inherit the GPLv3 licence.
+[Read more here](https://www.gnu.org/licenses/gpl-3.0.en.html).
+
 ## Config
 
 [See here](./src/main/resources/config.yml) for how to properly configure your Smithery plugin. Smithery also supports,
