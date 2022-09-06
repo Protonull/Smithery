@@ -2,6 +2,7 @@ package uk.protonull.smithery.alloys;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.FurnaceBurnEvent;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.inventory.Recipe;
 import uk.protonull.smithery.utilities.Utilities;
@@ -17,6 +18,14 @@ public final class AlloyListener implements Listener {
             if (hasAlloyIngredients ^ definesAlloyIngredients) { // XOR
                 Utilities.cancelPrepareItemCraftEvent(event);
             }
+        }
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    public void preventAlloysBeingUsedAsFuel(final FurnaceBurnEvent event) {
+        if (AlloyUtils.isItemAnAlloy(event.getFuel())) {
+            event.setConsumeFuel(false);
+            event.setCancelled(true);
         }
     }
 
