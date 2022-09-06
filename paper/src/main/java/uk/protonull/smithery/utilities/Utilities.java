@@ -8,11 +8,9 @@ import java.util.function.BiPredicate;
 import java.util.logging.Level;
 import lombok.experimental.UtilityClass;
 import net.minecraft.nbt.CompoundTag;
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.craftbukkit.v1_18_R2.persistence.CraftPersistentDataContainer;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -59,11 +57,6 @@ public class Utilities {
             throw new IllegalArgumentException(message);
         }
         return string;
-    }
-
-    public @NotNull NamespacedKey key(final @NotNull String namespace,
-                                      final @NotNull String key) {
-        return new NamespacedKey(namespace, key);
     }
 
     /**

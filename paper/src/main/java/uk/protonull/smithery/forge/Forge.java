@@ -19,7 +19,7 @@ import uk.protonull.smithery.utilities.Utilities;
 public final class Forge implements InventoryHolder {
 
     private static final Component FORGE_TITLE = Component.text("Smithery");
-    public static final NamespacedKey FORGE_KEY = Utilities.key("smithery", "forge");
+    public static final NamespacedKey FORGE_KEY = new NamespacedKey("smithery", "forge");
     private static final String INGREDIENTS_KEY = "ingredients";
     private static final String TIME_KEY = "time";
     private static final String INVENTORY_KEY = "inventory";

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 import lombok.experimental.UtilityClass;
+import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import uk.protonull.smithery.config.Config;
@@ -30,7 +31,7 @@ public class AlloyCombinations {
         for (final ForgeRecipe recipe : Config.RECIPES.get()) {
             for (final AlloyQuality quality : QUALITIES) {
                 final var shapedRecipe = new ShapedRecipe(
-                        Utilities.key("smithery", "combination_" + (counter++)),
+                        new NamespacedKey("smithery", "combination_" + (counter++)),
                         AlloyUtils.createAlloyFromRecipe(recipe, quality.upgrade()));
                 shapedRecipe.shape("xx", "xx");
                 shapedRecipe.setIngredient('x', AlloyUtils.createAlloyFromRecipe(recipe, quality));

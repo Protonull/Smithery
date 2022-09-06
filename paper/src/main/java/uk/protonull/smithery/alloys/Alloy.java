@@ -62,8 +62,8 @@ public record Alloy(@NotNull String recipe,
     public static final Alloy SLAG = new Alloy("NONE", AlloyQuality.BEST);
     public static final NamespacedKey PDC_KEY = new NamespacedKey("smithery", "alloy");
     public static PersistentDataType<PersistentDataContainer, Alloy> TYPE = new PersistentDataType<>() {
-        private static final NamespacedKey TYPE_KEY = Utilities.key(".", "type");
-        private static final NamespacedKey QUALITY_KEY = Utilities.key(".", "quality");
+        private static final NamespacedKey TYPE_KEY = new NamespacedKey(".", "type");
+        private static final NamespacedKey QUALITY_KEY = new NamespacedKey(".", "quality");
         @Override
         public @NotNull Class<PersistentDataContainer> getPrimitiveType() {
             return PersistentDataContainer.class;
