@@ -120,11 +120,12 @@ public class Utilities {
 
     public @NotNull CompoundTag getOrCreateCompound(final @NotNull CompoundTag host,
                                                     final @NotNull String key) {
-        return Objects.requireNonNullElseGet(host.getCompound(key), () -> {
-            final var nbt = new CompoundTag();
-            host.put(key, nbt);
+        if (host.get(key) instanceof final CompoundTag nbt) {
             return nbt;
-        });
+        }
+        final var nbt = new CompoundTag();
+        host.put(key, nbt);
+        return nbt;
     }
 
     /**
