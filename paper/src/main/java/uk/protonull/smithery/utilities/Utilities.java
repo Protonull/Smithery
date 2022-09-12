@@ -1,6 +1,5 @@
 package uk.protonull.smithery.utilities;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
@@ -8,7 +7,6 @@ import java.util.function.BiPredicate;
 import java.util.logging.Level;
 import lombok.experimental.UtilityClass;
 import net.minecraft.nbt.CompoundTag;
-import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_18_R2.persistence.CraftPersistentDataContainer;
@@ -49,14 +47,6 @@ public class Utilities {
     public void setInteractItem(final @NotNull PlayerInteractEvent event,
                                 final ItemStack item) {
         event.getPlayer().getInventory().setItem(Objects.requireNonNull(event.getHand()), item);
-    }
-
-    public @NotNull String requireNonBlankString(final String string,
-                                                 final @NotNull String message) {
-        if (StringUtils.isBlank(string)) {
-            throw new IllegalArgumentException(message);
-        }
-        return string;
     }
 
     /**
@@ -155,8 +145,7 @@ public class Utilities {
      */
     public void inventoryFromNBT(final @NotNull Inventory inventory,
                                  final @NotNull CompoundTag nbt) {
-        final ItemStack[] contents = inventory.getContents();
-        Arrays.fill(contents, null);
+        inventory.clear();
         for (final String key : nbt.getAllKeys()) {
             final ItemStack parsed = NBTHelper.itemStackFromNBT(new NBTCompound(nbt.getCompound(key)));
             if (isEmptyItem(parsed)) {
@@ -173,15 +162,14 @@ public class Utilities {
                         new IllegalArgumentException());
                 continue;
             }
-            if (index < 0 || index >= contents.length) {
+            if (index < 0 || index >= inventory.getSize()) {
                 LOGGER.log(Level.WARNING,
-                        "Inventory slot [" + index + "] is out of bounds of array[" + contents.length + "]! Item[" + parsed + "] will be ignored.",
+                        "Inventory slot [" + index + "] is out of bounds of array[" + inventory.getSize() + "]! Item[" + parsed + "] will be ignored.",
                         new IllegalArgumentException());
                 continue;
             }
-            contents[index] = parsed;
+            inventory.setItem(index, parsed);
         }
-        inventory.setContents(contents);
     }
 
 }
