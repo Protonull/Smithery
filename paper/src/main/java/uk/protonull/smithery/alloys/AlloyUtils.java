@@ -21,12 +21,10 @@ import org.jetbrains.annotations.Nullable;
 import uk.protonull.smithery.config.Config;
 import uk.protonull.smithery.forge.ForgeRecipe;
 import uk.protonull.smithery.utilities.AmountMap;
-import uk.protonull.smithery.utilities.ItemBuilder;
 import vg.civcraft.mc.civmodcore.inventory.items.MetaUtils;
-import vg.civcraft.mc.civmodcore.utilities.MoreArrayUtils;
 
 @UtilityClass
-public final class AlloyUtils {
+public class AlloyUtils {
 
     /**
      * @param item The item to check.
@@ -143,7 +141,7 @@ public final class AlloyUtils {
      * @return Returns true if the matrix contains Alloys.
      */
     public boolean doesMatrixContainAlloys(final @NotNull CraftingInventory inventory) {
-        return MoreArrayUtils.anyMatch(inventory.getMatrix(), AlloyUtils::isItemAnAlloy);
+        return IterableUtils.matchesAny(List.of(inventory.getMatrix()), AlloyUtils::isItemAnAlloy);
     }
 
     /**
@@ -166,24 +164,24 @@ public final class AlloyUtils {
     // Molten Alloy
     // ------------------------------------------------------------
 
-    public static final Material MOLTEN_ALLOY_MATERIAL = Material.LAVA_BUCKET;
+    public final Material MOLTEN_ALLOY_MATERIAL = Material.LAVA_BUCKET;
 
     /**
      * @return Returns a new Alloy template item.
      */
     public @NotNull ItemStack newMoltenAlloy(final @NotNull Alloy alloy) {
-        return ItemBuilder.builder(MOLTEN_ALLOY_MATERIAL)
-                .meta((final ItemMeta meta) -> {
-                    setAlloyToItem(meta, alloy);
-                    meta.displayName(Component.text()
-                            .decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE)
-                            .color(NamedTextColor.RED)
-                            .content("Molten Metal")
-                            .build());
-                    meta.lore(List.of(Component.text("Take this to a water cauldron to cool into an alloy!")));
-                    MetaUtils.addGlow(meta);
-                })
-                .build();
+        final var item = new ItemStack(MOLTEN_ALLOY_MATERIAL);
+        item.editMeta((final ItemMeta meta) -> {
+            setAlloyToItem(meta, alloy);
+            meta.displayName(Component.text()
+                    .decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE)
+                    .color(NamedTextColor.RED)
+                    .content("Molten Metal")
+                    .build());
+            meta.lore(List.of(Component.text("Take this to a water cauldron to cool into an alloy!")));
+            MetaUtils.addGlow(meta);
+        });
+        return item;
     }
 
     /**
@@ -214,7 +212,6 @@ public final class AlloyUtils {
                     .build());
             meta.lore(List.of(
                     Component.text()
-                            .decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE)
                             .color(NamedTextColor.WHITE)
                             .content("Now look what you've done...")
                             .build()
