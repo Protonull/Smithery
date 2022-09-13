@@ -1,6 +1,8 @@
 name: ${name}
 version: ${version}
 main: uk.protonull.smithery.Smithery
+author: Protonull
+authors: []
 api-version: 1.18
 depend: [CivModCore]
 permissions:
