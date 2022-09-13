@@ -29,7 +29,7 @@ Recipes:
     # Ingredients are defined as follows: "INGREDIENT/AMOUNT"
     #
     # If the "INGREDIENT" is a Bukkit-Material, write it as: "STONE_BRICKS/1"
-    # See Materials: https://papermc.io/javadocs/paper/1.16/org/bukkit/Material.html
+    # See Materials: https://jd.papermc.io/paper/1.18/org/bukkit/Material.html
     #
     # If the "INGREDIENT" is an Alloy, write its Tag as such: "STEEL:GOOD/1"
     # There are four recipe-qualities: BEST, GOOD, OKAY, POOR
